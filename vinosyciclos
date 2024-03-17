@@ -1,0 +1,166 @@
+1. Muestra el primer valor
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html> 
+<body>
+  <h2>VINOS</h2>
+  <table border="1">
+    <tr bgcolor="#ffffff">
+      <th style="text-align:left">Nome</th>
+      <th style="text-align:left">Prezo</th>
+    </tr>
+    <xsl:for-each select="viños/viño[1]">
+    <tr>
+      <td><xsl:value-of select="nome"/></td>
+      <td><xsl:value-of select="prezo"/></td>
+    </tr>
+    </xsl:for-each>
+  </table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+
+2. Muestra todos los valores
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html> 
+<body>
+  <h2>VINOS</h2>
+  <table border="1">
+    <tr bgcolor="#ffffff">
+      <th style="text-align:left">Nome</th>
+      <th style="text-align:left">Prezo</th>
+    </tr>
+    <xsl:for-each select="viños/viño">
+    <tr>
+      <td><xsl:value-of select="nome"/></td>
+      <td><xsl:value-of select="prezo"/></td>
+    </tr>
+    </xsl:for-each>
+  </table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+
+3. Ordena los valores.
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html> 
+<body>
+  <h2>VINOS</h2>
+  <table border="1">
+    <tr bgcolor="#ffffff">
+      <th style="text-align:left">Nome</th>
+      <th style="text-align:left">Prezo</th>
+    </tr>
+    <xsl:for-each select="viños/viño">
+      <xsl:sort select="prezo" order="descending" data-type="number"/>
+    <tr>
+      <td><xsl:value-of select="nome"/></td>
+      <td><xsl:value-of select="prezo"/></td>
+    </tr>
+    </xsl:for-each>
+  </table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+
+a) ¿qué pasa si no ponemos el data type?
+    Si no se pone el data type se ordenará como texto.
+    
+b) ¿cuál es el orden por defecto?
+    Orden ascendente
+    
+c) ¿para qué sirve case-order?
+  Para especificar si las letras mayúsculas y minúsculas se deben ordenar de manera diferente.
+
+4. Filtra para los que cumplen una condición.
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html> 
+<body>
+  <h2>VINOS</h2>
+  <table border="1">
+    <tr bgcolor="#ffffff">
+      <th style="text-align:left">Nome</th>
+      <th style="text-align:left">Prezo</th>
+    </tr>
+    <xsl:for-each select="viños/viño">
+      <xsl:if test="prezo &gt; 9">
+    <tr>
+      <td><xsl:value-of select="nome"/></td>
+      <td><xsl:value-of select="prezo"/></td>
+    </tr>
+    </xsl:for-each>
+  </table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+
+5. Filtra para múltiples condiciones
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html> 
+<body>
+  <h2>VINOS</h2>
+  <table border="1">
+    <tr bgcolor="#ffffff">
+      <th style="text-align:left">Nome</th>
+      <th style="text-align:left">Prezo</th>
+    </tr>
+    <xsl:for-each select="viños/viño">
+       <xsl:choose>
+      <xsl:when test="prezo &lt;= 10">
+        <tr style="color: green;">
+          <td><xsl:value-of select="nome"/></td>
+          <td><xsl:value-of select="prezo"/>€</td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="prezo &gt;= 30">
+        <tr style="color: red;">
+          <td><xsl:value-of select="nome"/></td>
+          <td><xsl:value-of select="prezo"/>€</td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="nome"/></td>
+          <td><xsl:value-of select="prezo"/>€</td>
+        </tr>
+      </xsl:otherwise>
+    </xsl:choose>
+    <tr>
+      <td><xsl:value-of select="nome"/></td>
+      <td><xsl:value-of select="prezo"/></td>
+    </tr>
+    </xsl:for-each>
+  </table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+
+7. Diferentes transofrmaciones XML a HTML
+
+7.1 Sin etiquetas
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <xsl:template match="ciclos/ciclo">
+    <p><xsl:value-of select="nombre"/></p>
+  </xsl:template>
+
+</xsl:stylesheet>
+
+7.2 Con párrafos
